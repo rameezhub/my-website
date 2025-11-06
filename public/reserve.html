@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reserve Vehicle</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="p-4">
+  <h3>Create Reservation</h3>
+  <form id="reservationForm">
+    <input class="form-control mb-2" name="customer_id" placeholder="Customer ID" required>
+    <input class="form-control mb-2" name="vehicle_id" placeholder="Vehicle ID" required>
+    <input class="form-control mb-2" name="start_date" type="date" required>
+    <input class="form-control mb-2" name="end_date" type="date" required>
+    <button class="btn btn-success">Reserve</button>
+  </form>
+
+  <script>
+    document.getElementById('reservationForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target));
+      const res = await fetch('/reservation', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      const text = await res.text();
+      alert(text);
+    });
+  </script>
+</body>
+</html>
